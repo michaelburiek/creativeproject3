@@ -1,7 +1,8 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">HOME</router-link> |
+    <router-link to="/pokedex">POKEDEX</router-link> |
+    <router-link to="/map">MAP</router-link>
   </nav>
   <router-view/>
 </template>
