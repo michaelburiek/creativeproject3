@@ -3,7 +3,7 @@
       <div class="image-container">
         <img v-bind:src="img" alt="Pikachu" class="image">
       </div>
-      <div class="footer">
+      <div class="footer-container">
         <a href="https://github.com/michaelburiek/creativeproject3.git"><b>GITHUB</b></a>
       </div>
     </div>
@@ -38,7 +38,7 @@ export default {
     width: 95%;
     border-radius: 10px;
   }
-  .footer a{
+  .footer-container a{
     display: flex;
     align-items: center;
     justify-content: center;
