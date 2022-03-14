@@ -1,30 +1,32 @@
 <template>
-  <div class="wrapper">
+  <div>
       <h1>POKEDEX</h1>
-      <div class="button-container">
-        <button @click="fetchPokemon('normal')" class="button normal">NORMAL</button>
-        <button @click="fetchPokemon('fighting')" class="button fighting">FIGHTING</button>
-        <button @click="fetchPokemon('flying')" class="button flying">FLYING</button>
-        <button @click="fetchPokemon('poison')" class="button poison">POISON</button>
-        <button @click="fetchPokemon('ground')" class="button ground">GROUND</button>
-        <button @click="fetchPokemon('rock')" class="button rock">ROCK</button>
-        <button @click="fetchPokemon('bug')" class="button bug">BUG</button>
-        <button @click="fetchPokemon('ghost')" class="button ghost">GHOST</button>
-        <button @click="fetchPokemon('steel')" class="button steel">STEEL</button>
-        <button @click="fetchPokemon('fire')" class="button fire">FIRE</button>
-        <button @click="fetchPokemon('water')" class="button water">WATER</button>
-        <button @click="fetchPokemon('grass')" class="button grass">GRASS</button>
-        <button @click="fetchPokemon('electric')" class="button electric">ELECTRIC</button>
-        <button @click="fetchPokemon('psychic')" class="button psychic">PSYCHIC</button>
-        <button @click="fetchPokemon('ice')" class="button ice">ICE</button>
-        <button @click="fetchPokemon('dragon')" class="button dragon">DRAGON</button>
-        <button @click="fetchPokemon('dark')" class="button dark">DARK</button>
-        <button @click="fetchPokemon('fairy')" class="button fairy">FAIRY</button>
-
+      <div class="wrapper">
+        <div class="button-container">
+            <button @click="fetchPokemon('normal')" class="button normal">NORMAL</button>
+            <button @click="fetchPokemon('fighting')" class="button fighting">FIGHTING</button>
+            <button @click="fetchPokemon('flying')" class="button flying">FLYING</button>
+            <button @click="fetchPokemon('poison')" class="button poison">POISON</button>
+            <button @click="fetchPokemon('ground')" class="button ground">GROUND</button>
+            <button @click="fetchPokemon('rock')" class="button rock">ROCK</button>
+            <button @click="fetchPokemon('bug')" class="button bug">BUG</button>
+            <button @click="fetchPokemon('ghost')" class="button ghost">GHOST</button>
+            <button @click="fetchPokemon('steel')" class="button steel">STEEL</button>
+            <button @click="fetchPokemon('fire')" class="button fire">FIRE</button>
+            <button @click="fetchPokemon('water')" class="button water">WATER</button>
+            <button @click="fetchPokemon('grass')" class="button grass">GRASS</button>
+            <button @click="fetchPokemon('electric')" class="button electric">ELECTRIC</button>
+            <button @click="fetchPokemon('psychic')" class="button psychic">PSYCHIC</button>
+            <button @click="fetchPokemon('ice')" class="button ice">ICE</button>
+            <button @click="fetchPokemon('dragon')" class="button dragon">DRAGON</button>
+            <button @click="fetchPokemon('dark')" class="button dark">DARK</button>
+            <button @click="fetchPokemon('fairy')" class="button fairy">FAIRY</button>
+        </div>
       </div>
 
       <div class="pokedex-container">
-        <ul>{{pokedex}}</ul>
+        <ul id="pokedex">
+        </ul>
       </div>
 
       <div class="footer-container">
@@ -38,7 +40,7 @@ export default {
   name: 'PokedexAPI',
   data() {
     return {
-        pokedex: '',
+        
     }
   },
   methods: {
@@ -79,15 +81,15 @@ export default {
                 (filteredPokeman) => 
                 `
                     <li class="card">
-                        <img class="card-image" src="${filteredPokeman.backImage}"/>
+                        <img class="card-image" src="${filteredPokeman.frontImage}"/>
                         <h2 class="card-title">${filteredPokeman.id}. ${filteredPokeman.name}</h2>
                         <p class="card-subtitle">Type: ${filteredPokeman.type}</p>
                     </li>
                 `
                 )
                 .join('');
-                console.log(pokemonHTMLString);
-                this.pokedex = pokemonHTMLString;
+                const pokedex = document.getElementById('pokedex');
+                pokedex.innerHTML = pokemonHTMLString;
           };
       },
   },
@@ -95,11 +97,13 @@ export default {
 </script>
 
 <style scoped>
+    .wrapper {
+       display: flex;
+       justify-content: center;
+       align-items: center; 
+    }
     .pokedex-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+        height: 100%;
         border: solid;
         border-radius: 10px;
         margin: 20px;
@@ -113,13 +117,23 @@ export default {
         text-decoration: none;
         color: black;
     }
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+        width: 75vh;
+    }
     .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 6em;
         background-color: white;
         border: none;
         color: white;
         text-align: center;
         text-decoration: none;
-        display: inline-flex;
         margin: 4px 2px;
         font-size: 16px;
         transition-duration: 0.4s;
@@ -268,6 +282,42 @@ export default {
         border-radius: 5px;
     }
     .fairy:hover {background-color: #F9AEFF;}
+
+#pokedex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 20px;
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.card {
+    list-style: none;
+    padding: 40px;
+    background-color: #f4f4f4;
+    color: #222;
+    text-align: center;
+}
+
+.card:hover {
+    animation: bounce 0.5s linear;
+}
+
+.card-title {
+    text-transform: capitalize;
+    margin-bottom: 0px;
+    font-size: 32px;
+    font-weight: normal;
+}
+.card-subtitle {
+    margin-top: 5px;
+    color: #666;
+    font-weight: lighter;
+}
+
+.card-image {
+    height: 180px;
+}
 
 
 </style>
